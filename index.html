@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rock Paper Scissors</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+  <script>
+ 
+//function for computer play
+function comp_play () {
+    let num_choice= Math.floor(Math.random() *3);
+    //console.log(num_choice);
+    let choice;
+
+    switch (num_choice) {
+        case 0:
+        choice="rock";
+        break;
+        case 1:
+        choice="scissors";
+        break;
+        case 2:
+        choice="paper";
+        break;
+    }
+    //console.log(choice);
+    return choice;
+}
+
+//function for play round
+function play_round (player_input, computer_input) {
+    let play_choice= player_input.toLowerCase();
+    let result="default";
+    
+    if (play_choice==="rock") {
+        if (computer_input==="scissors") {
+            result="Player Wins! You picked rock, computer picked scissors.";
+        }
+        else if (computer_input==="paper") {
+            result= "Computer Wins! You picked rock, computer picked paper."
+        }
+        else {
+            result="Tie! You both picked rock.";
+        }
+    }
+    else if (play_choice==="scissors") {
+        if (computer_input==="rock") {
+            result="Computer Wins! You picked scissors, computer picked rock.";
+        }
+        else if (computer_input==="paper") {
+            result= "Player Wins! You picked scissors, computer picked paper."
+        }
+        else {
+            result="Tie! You both picked scissors.";
+        }
+    }
+    else if (play_choice==="paper") {
+        if (computer_input==="rock") {
+            result="Player Wins! You picked paper, computer picked rock.";
+        }
+        else if (computer_input==="scissors") {
+            result= "Computer Wins! You picked paper, computer picked scissors."
+        }
+        else {
+            result="Tie! You both picked paper.";
+        }            
+    }
+
+    return result;
+
+}
+
+
+//function for play full game
+function play_game () {
+
+//initialize variables
+let comp_wins=0;
+let play_wins=0;
+let counter=0;
+
+//for loop for 5 games
+//prompt user for their choice
+
+for (i=0; i<5; i++) {
+
+//initialize values
+let comp_choice= comp_play();
+let player_choice= prompt("Please enter rock, paper, or scissors.");
+player_choice=player_choice.toLowerCase();
+
+//check valid user input
+if (player_choice !== "rock" && player_choice !== "paper" && player_choice !== "scissors") {
+    player_choice= prompt("Please enter a valid choice of rock, paper, or scissors.")
+}
+
+let result = play_round(player_choice, comp_choice);
+
+//count wins for player and computer
+if (result.charAt(0) === "C") {
+    comp_wins++;
+    counter++;
+}
+else if (result.charAt(0)==="P") {
+    play_wins++;
+    counter++;
+}
+else if (result.charAt(0) === "T") {
+    counter++;
+    i--; //don't count tie games
+
+}
+else {
+    counter++;
+}
+
+//output result of each round
+console.log(result);
+
+//finish game and return result when someone has won 3/5, not counting ties
+if (comp_wins >= 3) {
+    return "Computer wins game!";
+}
+else if (play_wins >= 3) {
+    return "Player wins game!";
+}
+else if (counter >= 10) {
+    return "This is taking forever, just start a new game";
+}
+
+}
+
+}
+
+  </script>
+</body>
+</html>
